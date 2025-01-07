@@ -1,0 +1,7 @@
+[submodule "pyorbbecsdk"]
+	path = camera/orbbec/pyorbbecsdk
+	url = https://github.com/orbbec/pyorbbecsdk.git
+
+[submodule "IGEV"]
+	path = camera/zed_ros/IGEV
+	url = https://github.com/gangweiX/IGEV.git

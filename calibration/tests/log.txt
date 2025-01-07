@@ -1,0 +1,84 @@
+------------------------------
+Using data for cam0
+size of T_camera2marker_set: 30
+size of T_base2marker_set: 30
+
+METHOD1: ONE_SAMPLE_ESTIMATE
+Transformation matrix T_base2camera:
+[[ 0.61114062  0.28598301 -0.73805208  0.59037267]
+ [ 0.50851317 -0.85641899  0.08922374 -0.32213134]
+ [-0.60656534 -0.42983745 -0.66881855  0.55448936]
+ [ 0.          0.          0.          1.        ]]
+Avg. reprojection error: 0.6067193724112401, std. error: 0.3035154546708234
+
+METHOD2: SVD_ALGEBRAIC
+Transformation matrix T_base2camera:
+[[ 0.02008831  0.99978649  0.00484133  0.22221156]
+ [ 0.83079106 -0.0193863   0.55624669 -0.55080176]
+ [ 0.55622178 -0.00715192 -0.83100311  0.64815147]
+ [ 0.          0.          0.          1.        ]]
+Avg. reprojection error: 2.0126332615235034, std. error: 0.01661599748932966
+
+METHOD3: CALIB_HAND_EYE_TSAI
+Transformation matrix T_base2camera:
+[[ 0.02809583  0.99954656  0.0108302   0.22885264]
+ [ 0.83436572 -0.02941676  0.55042574 -0.5508786 ]
+ [ 0.55049475 -0.00642831 -0.83481388  0.6437305 ]
+ [ 0.          0.          0.          1.        ]]
+Avg. reprojection error: 2.0042087155891752, std. error: 0.01650558787197815
+------------------------------
+Using data for cam1
+size of T_camera2marker_set: 30
+size of T_base2marker_set: 30
+
+METHOD1: ONE_SAMPLE_ESTIMATE
+Transformation matrix T_base2camera:
+[[ 0.98898041  0.12243128 -0.08323655  0.23382517]
+ [-0.10261642  0.16163226 -0.98150134  0.62336317]
+ [-0.10671276  0.97922704  0.1724146   0.30831095]
+ [ 0.          0.          0.          1.        ]]
+Avg. reprojection error: 0.8169661488698199, std. error: 0.35660763496926934
+
+METHOD2: SVD_ALGEBRAIC
+Transformation matrix T_base2camera:
+[[ 0.05634993  0.98937948  0.13398856  0.19152014]
+ [ 0.45418579  0.09410963 -0.88592248  0.55504362]
+ [-0.88912314  0.11077737 -0.44405903  0.55831789]
+ [ 0.          0.          0.          1.        ]]
+Avg. reprojection error: 1.945499558987975, std. error: 0.04180689991758745
+
+METHOD3: CALIB_HAND_EYE_TSAI
+Transformation matrix T_base2camera:
+[[ 0.02649805  0.99953425 -0.01513714  0.24160173]
+ [ 0.44217271 -0.02530005 -0.89657303  0.57725651]
+ [-0.89653843  0.01706421 -0.44263717  0.51942907]
+ [ 0.          0.          0.          1.        ]]
+Avg. reprojection error: 1.996353627758182, std. error: 0.011334279630179855
+------------------------------
+Using data for cam2
+size of T_camera2marker_set: 30
+size of T_base2marker_set: 30
+
+METHOD1: ONE_SAMPLE_ESTIMATE
+Transformation matrix T_base2camera:
+[[ 0.97370973  0.01006223  0.22757002  0.26409599]
+ [-0.21963785 -0.22343829  0.9496497  -0.5619756 ]
+ [ 0.06040345 -0.97466614 -0.21535399  0.37031508]
+ [ 0.          0.          0.          1.        ]]
+Avg. reprojection error: 0.8734853400188943, std. error: 0.36755626792957713
+
+METHOD2: SVD_ALGEBRAIC
+Transformation matrix T_base2camera:
+[[-0.00394769  0.99769018  0.06781385  0.20894071]
+ [-0.11990722 -0.06779736  0.99046745 -0.50734221]
+ [ 0.99277725 -0.00422131  0.1198979   0.37460666]
+ [ 0.          0.          0.          1.        ]]
+Avg. reprojection error: 2.001045205957341, std. error: 0.038014389110699126
+
+METHOD3: CALIB_HAND_EYE_TSAI
+Transformation matrix T_base2camera:
+[[ 0.009227    0.99994831  0.0042704   0.33032814]
+ [-0.01028128 -0.00417548  0.99993843 -0.50499273]
+ [ 0.99990457 -0.00927034  0.01024222  0.34890853]
+ [ 0.          0.          0.          1.        ]]
+Avg. reprojection error: 2.0045554722581236, std. error: 0.010603916920406698
