@@ -27,10 +27,8 @@ Given a setup of camera on fixed base, the procedure to calibrate the robot-came
 > $^bT_m^{(i)} \mid i = 1...n$: Transformation matrix marker to robot base. $^bT_m^{(i)} = {^bT_g^{(i)}} \cdot {^gT_m} $ \
 > $^cT_m^{(i)} \mid i = 1...n$: Transformation matrix marker to camera.
 
-5. Validate the calibration by checking the reprojection error, $\epsilon$.
-$$
-    \epsilon = \frac{1}{n} \cdot {\sum_{i=1}^{n}{\lVert (^bT_c \cdot {^cT_m^{(i)}}) [:,3] - (^bT_m^{(i)})[:,3]\rVert}}
-$$
+5. Validate the calibration by checking the reprojection error, $\epsilon$.\
+$$\epsilon = \frac{1}{n} \cdot {\sum_{i=1}^{n}{\lVert (^bT_c \cdot {^cT_m^{(i)}}) [:,3] - (^bT_m^{(i)})[:,3]\rVert}}$$
 
 ## Method: eye-on-hand
 
@@ -50,10 +48,8 @@ In this setup, we use one of the calibrated cameras fixed on base to calibrate a
 > $^gT_m^{(i)} \mid i = 1...n$: Transformation matrix marker to robot gripper. $^gT_m^{(i)} = {(^bT_g^{(i)})^{-1}} \cdot {^bT_m} $ \
 > $^cT_m^{(i)} \mid i = 1...n$: Transformation matrix marker to camera.
 
-5. Validate the calibration by checking the reprojection error, $\epsilon$.
-$$
-    \epsilon = \frac{1}{n} \cdot {\sum_{i=1}^{n}{\lVert (^gT_c \cdot {^cT_m^{(i)}}) [:,3] - (^gT_m^{(i)})[:,3]\rVert}}
-$$
+5. Validate the calibration by checking the reprojection error, $\epsilon$.\
+$$\epsilon = \frac{1}{n} \cdot {\sum_{i=1}^{n}{\lVert (^gT_c \cdot {^cT_m^{(i)}}) [:,3] - (^gT_m^{(i)})[:,3]\rVert}}$$
 
 ---
 
