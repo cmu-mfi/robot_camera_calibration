@@ -218,7 +218,7 @@ def solve_rigid_transformation(T_base2target_set, T_camera2target_set, method="O
         t_camera2target = [T[:3,3] for T in T_camera2target_set]
         R_camera2base, t_base2camera = cv2.calibrateHandEye(R_target2base, t_target2base, 
                                                             R_camera2target, t_camera2target,  
-                                                            cv2.CALIB_HAND_EYE_TSAI)
+                                                            method=cv2.CALIB_HAND_EYE_TSAI)
         T_base2camera = np.eye(4)
         T_base2camera[:3,:3] = R_camera2base
         T_base2camera[:3,3] = np.squeeze(t_base2camera)
@@ -233,7 +233,7 @@ def solve_rigid_transformation(T_base2target_set, T_camera2target_set, method="O
         t_camera2target = [T[:3,3] for T in T_camera2target_set]
         R_camera2base, t_base2camera = cv2.calibrateHandEye(R_target2base, t_target2base, 
                                                             R_camera2target, t_camera2target,  
-                                                            cv2.CALIB_HAND_EYE_ANDREFF)
+                                                            method=cv2.CALIB_HAND_EYE_ANDREFF)
         T_base2camera = np.eye(4)
         T_base2camera[:3,:3] = R_camera2base
         T_base2camera[:3,3] = np.squeeze(t_base2camera)
@@ -248,7 +248,7 @@ def solve_rigid_transformation(T_base2target_set, T_camera2target_set, method="O
         t_camera2target = [T[:3,3] for T in T_camera2target_set]
         R_camera2base, t_base2camera = cv2.calibrateHandEye(R_target2base, t_target2base, 
                                                             R_camera2target, t_camera2target,  
-                                                            cv2.CALIB_HAND_EYE_PARK)
+                                                            method=cv2.CALIB_HAND_EYE_PARK)
         T_base2camera = np.eye(4)
         T_base2camera[:3,:3] = R_camera2base
         T_base2camera[:3,3] = np.squeeze(t_base2camera)
@@ -282,7 +282,7 @@ def collect_data(camera, robot, marker, method='JOG', num_trials=None, verbose=T
 
     if num_trials < MIN_TRIALS or num_trials > MAX_TRIALS:
         print("Invalid number of trials. Aborting...")
-        return
+        return None, None
         
     home = robot.get_eef_pose()
     home_pos = np.squeeze(home[:3,3])
@@ -294,7 +294,7 @@ def collect_data(camera, robot, marker, method='JOG', num_trials=None, verbose=T
     # Safety Check
     go_on = input("Ensure the robot is in safe position. Do you want to continue? (y/n): ")
     if(go_on != 'y'):
-        return None
+        return None, None
 
     for i in range(num_trials):        
         retry = 'y'
@@ -312,11 +312,19 @@ def collect_data(camera, robot, marker, method='JOG', num_trials=None, verbose=T
                         
             # 2.1. Move the robot and collect data
             if method == 'PLAY':
-                random_delta_pos = np.random.uniform(-0.05, 0.05, size=(3,))
-                # random_delta_quart = np.random.uniform(-0.3, 0.3, size=(4,))
-                random_delta_quart = np.random.uniform(-0.2, 0.2, size=(4,))                    
+                POSITION_LIMITS = 0.01 #meters
+                ANGLE_LIMITS = 60 # deg
+                random_delta_pos = np.random.uniform(-POSITION_LIMITS, POSITION_LIMITS, size=(3,))
+                random_delta_quart = np.random.uniform(-0.3, 0.3, size=(4,))
+                # random_delta_quart = np.random.uniform(-0.2, 0.2, size=(4,))                    
+                # random_delta_euler = R.random().as_euler('xyz')
+                # while not all([abs(np.rad2deg(r))<ANGLE_LIMITS for r in random_delta_euler]):
+                    # random_delta_euler = R.random().as_euler('xyz')
+                # random_delta_quart = R.from_euler('xyz',random_delta_euler).as_quat()
+                
                 robot_pose = robot.move_to_pose(position = home_pos + random_delta_pos, 
-                                                orientation = home_quart + random_delta_quart)      
+                                                orientation = home_quart + random_delta_quart)   
+                time.sleep(1.0)   
             if robot_pose is not None:
                 # 2.2. Collect data from camera
                 image = camera.get_rgb_image()

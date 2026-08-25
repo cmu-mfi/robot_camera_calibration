@@ -1,14 +1,16 @@
 import argparse
 from calibration.calibrations import *
 from calibration.marker.aruco_marker import ArucoMarker
-from camera.orbbec.ob_camera import OBCamera
-from camera.zed_ros.zed_ros import ZedRos
-from robot.ros_robot.ros_robot import ROSRobot
-
+# from camera.orbbec.ob_camera import OBCamera
+# from camera.zed_ros.zed_ros import ZedRos
+from robot.ros2_robot.ros2_robot import Ros2Robot
+from camera.camera_ros2.camera_ros2 import CameraRos2
+import numpy as np
+import pprint
 
 def robot_camera_calibration():
 
-    camera = ZedRos(camera_node=f'/cam2/zed_cam2', camera_type='zedxm', rosmaster_ip='localhost')
+    camera = CameraRos2(camera_namespace='/bed_side_cam/cam_watch')
 
     print("=====================================")
     print("CAMERA INITIALIZED")
@@ -20,21 +22,40 @@ def robot_camera_calibration():
     print("MARKER INITIALIZED")
     print("=====================================")
 
-    robot = ROSRobot(robot_name='yk_builder', rosmaster_ip='172.26.179.142')
+    robot = Ros2Robot(robot_namespace="ur20", base_frame="base")
 
     print("=====================================")
     print("ROBOT INITIALIZED")
     print("=====================================")
-
     T_eef2marker = np.array(
         [
-            [0.0, 0.0, 1.0, 0.041502],
-            [-1.0, 0.0, 0.0, 0.0],
-            [0.0, -1.0, 0.0, 0.080824],
+            [1.0, 0.0, 0.0, 0.0],
+            [0.0, 1.0, 0.0, -0.050],
+            [0.0, 0.0, 1.0, 0.077550],
             [0.0, 0.0, 0.0, 1.0],
         ]
     )
-
+    '''
+    T_eef2marker = np.array(
+     [
+         [0.0, 1.0, 0.0, -0.050],
+         [-1.0, 0.0, 0.0, 0.0],
+         [0.0, 0.0, 1.0, 0.077550],
+         [0.0, 0.0, 0.0, 1.0],
+     ]
+    )
+    '''
+    # camera_matrix = camera.get_rgb_intrinsics()
+    # camera_distortion = camera.get_rgb_distortion()
+    # image = camera.get_rgb_image()
+    # breakpoint()
+    # transforms, ids = marker.get_center_poses(input_image = image, 
+    #                                         camera_matrix = camera_matrix, 
+    #                                         camera_distortion = camera_distortion,
+    #                                         depth_image = None)
+    # print(np.round(transforms[0],3))
+    # breakpoint()
+    
     T_robot2camera = get_robot_camera_tf(
         camera, robot, marker, T_eef2marker, 'PLAY', use_depth=False)
 
@@ -42,7 +63,7 @@ def robot_camera_calibration():
     print("RESULTS ARE HERE!!")
     print("=====================================")
 
-    print("T_robot2camera:\n", T_robot2camera)
+    pprint.pprint("T_robot2camera:\n", T_robot2camera)
 
 
 if __name__ == "__main__":
